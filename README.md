@@ -1,4 +1,5 @@
-# Course Project: minimum cut of a graph using the Karger-Stein algorithm
+# Course Project
+## Minimum cut of a graph using the Karger-Stein algorithm
 
 To run the program, input the inital graph as a text file. 
 The text file should be of the following format.
