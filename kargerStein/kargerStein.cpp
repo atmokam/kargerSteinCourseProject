@@ -11,14 +11,14 @@ std::pair<T, T> pickHeadAndTail(std::map<T, std::vector<T>>& graph) {
     auto it = graph.begin();
     std::advance(it, rand() % graph.size());
     T head = it->first;
-    T idx = rand() % graph[head].size();
-    T tail = graph[head][idx];
+    T index = rand() % graph[head].size();
+    T tail = graph[head][index];
     return { head, tail };
 }
 
 template< typename T>
-std::map<T, std::vector<T>> modifiedKarger(std::map<T, std::vector<T>> graph, T lim, std::vector<T>& cuts) {
-    while (graph.size() > lim) {
+std::map<T, std::vector<T>> modifiedKarger(std::map<T, std::vector<T>> graph, T limit, std::vector<T>& cuts) {
+    while (graph.size() > limit) {
 
         auto [head, tail] = pickHeadAndTail(graph);
         // pick random key (head) and random vector element (tail)
@@ -27,7 +27,7 @@ std::map<T, std::vector<T>> modifiedKarger(std::map<T, std::vector<T>> graph, T 
             if (edge != head) {
                 graph[head].push_back(edge);
             }
-        } // if no self-loops, add the edge 
+        } // if no loops, add the edge to head
 
         for (auto edge : graph[tail]) {
             graph[edge].erase(std::remove(graph[edge].begin(), graph[edge].end(), tail), graph[edge].end());
@@ -39,8 +39,8 @@ std::map<T, std::vector<T>> modifiedKarger(std::map<T, std::vector<T>> graph, T 
     }
 
 
-    size_t mincut = graph.begin()->second.size();
-    cuts.push_back(mincut);
+    size_t minCut = graph.begin()->second.size();
+    cuts.push_back(minCut);
 
     return graph;
 }
@@ -52,10 +52,9 @@ std::map<T, std::vector<T>> kargerStein(std::map<T, std::vector<T>>& graph, std:
     }
     else {
         T times = static_cast<T>((double)graph.size() / sqrt(2.0));
-        std::map<T, std::vector<T>> graph_1 = modifiedKarger(graph, times, cuts);
-        std::map<T, std::vector<T>> graph_2 = modifiedKarger(graph, times, cuts);
+        std::map<T, std::vector<T>> graph1 = modifiedKarger(graph, times, cuts);
+        std::map<T, std::vector<T>> graph2 = modifiedKarger(graph, times, cuts);
 
-        return std::min(kargerStein(graph_1, cuts), kargerStein(graph_2, cuts));
+        return std::min(kargerStein(graph1, cuts), kargerStein(graph2, cuts));
     }
 }
-
