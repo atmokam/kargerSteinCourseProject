@@ -46,7 +46,7 @@ std::map<T, std::vector<T>> modifiedKarger(std::map<T, std::vector<T>> graph, T 
 }
 
 template< typename T>
-std::map<T, std::vector<T>> kargerStein(std::map<T, std::vector<T>> graph, std::vector<T>& cuts) {
+std::map<T, std::vector<T>> kargerStein(std::map<T, std::vector<T>>& graph, std::vector<T>& cuts) {
     if (graph.size() < 6) {
         return modifiedKarger(graph, (T)2, cuts);
     }
