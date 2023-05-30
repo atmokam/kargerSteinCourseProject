@@ -48,7 +48,7 @@ std::map<T, std::vector<T>> modifiedKarger(std::map<T, std::vector<T>> graph, T 
 template< typename T>
 std::map<T, std::vector<T>> kargerStein(std::map<T, std::vector<T>>& graph, std::vector<T>& cuts) {
     if (graph.size() < 6) {
-        return modifiedKarger(graph, (T)2, cuts);
+        return modifiedKarger(graph, static_cast<T>(2), cuts);
     }
     else {
         T times = static_cast<T>((double)graph.size() / sqrt(2.0));
